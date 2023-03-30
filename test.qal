@@ -1,0 +1,7 @@
+swap
+nprint 69
+nprint 69420
+push 4
+nprint
+debug
+halt

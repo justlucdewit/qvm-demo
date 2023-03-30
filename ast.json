@@ -1,0 +1,52 @@
+[
+    {
+        "type": "instruction",
+        "value": "swap",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "nprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "69"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "nprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "69420"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "nprint",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "debug",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "halt",
+        "operands": []
+    }
+]
