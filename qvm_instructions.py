@@ -62,3 +62,16 @@ def run_instruction(instruction, vm):
         reg = vm.get_register()
         num = vm.registers[reg]
         print(num)
+    
+    elif instruction == 0x13:
+        num = vm.stack.pop()
+        print(chr(num), end="")
+    
+    elif instruction == 0x14:
+        num = vm.get_u32()
+        print(chr(num), end="")
+    
+    elif instruction == 0x15:
+        reg = vm.get_register()
+        num = vm.registers[reg]
+        print(chr(num), end="")

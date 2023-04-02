@@ -1,1 +1,1 @@
-python qal.py
+python qasm.py

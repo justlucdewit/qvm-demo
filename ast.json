@@ -1,48 +1,113 @@
 [
     {
         "type": "instruction",
-        "value": "swap",
-        "operands": []
-    },
-    {
-        "type": "instruction",
-        "value": "nprint",
+        "value": "aprint",
         "operands": [
             {
                 "type": "numeric",
-                "value": "69"
+                "value": "72"
             }
         ]
     },
     {
         "type": "instruction",
-        "value": "nprint",
+        "value": "aprint",
         "operands": [
             {
                 "type": "numeric",
-                "value": "69420"
+                "value": "101"
             }
         ]
     },
     {
         "type": "instruction",
-        "value": "push",
+        "value": "aprint",
         "operands": [
             {
                 "type": "numeric",
-                "value": "4"
+                "value": "108"
             }
         ]
     },
     {
         "type": "instruction",
-        "value": "nprint",
-        "operands": []
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "108"
+            }
+        ]
     },
     {
         "type": "instruction",
-        "value": "debug",
-        "operands": []
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "111"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "32"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "87"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "111"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "114"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "108"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "aprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "100"
+            }
+        ]
     },
     {
         "type": "instruction",
