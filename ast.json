@@ -1,111 +1,15 @@
 [
     {
         "type": "instruction",
-        "value": "aprint",
+        "value": "sprint",
         "operands": [
             {
                 "type": "numeric",
-                "value": "72"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
+                "value": "10"
+            },
             {
                 "type": "numeric",
-                "value": "101"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "108"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "108"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "111"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "32"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "87"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "111"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "114"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "108"
-            }
-        ]
-    },
-    {
-        "type": "instruction",
-        "value": "aprint",
-        "operands": [
-            {
-                "type": "numeric",
-                "value": "100"
+                "value": "13"
             }
         ]
     },
@@ -113,5 +17,10 @@
         "type": "instruction",
         "value": "halt",
         "operands": []
+    },
+    {
+        "type": "keyword",
+        "value": "raw",
+        "string_value": "Hello World!\n"
     }
 ]

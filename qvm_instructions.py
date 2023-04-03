@@ -16,6 +16,11 @@ instruction_mapping = {
     0x13: "aprint", # numeric print
     0x14: "aprint <lit>", # ascii print
     0x15: "aprint <reg>", # ascii print
+    0x16: "sprint", # string print
+    0x17: "sprint <lit> <lit>", # string print
+    0x18: "sprint <lit> <reg>", # string print
+    0x19: "sprint <reg> <lit>", # string print
+    0x1A: "sprint <reg> <reg>" # string print
 }
 
 def run_instruction(instruction, vm):
@@ -75,3 +80,42 @@ def run_instruction(instruction, vm):
         reg = vm.get_register()
         num = vm.registers[reg]
         print(chr(num), end="")
+
+    elif instruction == 0x16:
+        address = vm.stack.pop()
+        str_len = vm.stack.pop()
+
+        string = vm.code[address:address+str_len]
+        print(string.decode("utf-8"), end="")
+
+    elif instruction == 0x17:
+        address = vm.get_u32()
+        str_len = vm.get_u32()
+
+        string = "".join(list(map(lambda x: chr(x), vm.code[address:address+str_len])))
+        print(string, end="")
+
+    elif instruction == 0x18:
+        address = vm.get_u32()
+        reg = vm.get_register()
+        str_len = vm.registers[reg]
+
+        string = vm.code[address:address+str_len]
+        print(string.decode("utf-8"), end="")
+    
+    elif instruction == 0x19:
+        reg = vm.get_register()
+        address = vm.registers[reg]
+        str_len = vm.get_u32()
+
+        string = vm.code[address:address+str_len]
+        print(string.decode("utf-8"), end="")
+    
+    elif instruction == 0x1A:
+        reg1 = vm.get_register()
+        reg2 = vm.get_register()
+        address = vm.registers[reg1]
+        str_len = vm.registers[reg2]
+
+        string = vm.code[address:address+str_len]
+        print(string.decode("utf-8"), end="")
