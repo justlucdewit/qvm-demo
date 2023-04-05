@@ -1,26 +1,339 @@
 [
     {
         "type": "instruction",
-        "value": "sprint",
+        "value": "push",
         "operands": [
             {
                 "type": "numeric",
-                "value": 10
-            },
-            {
-                "type": "numeric",
-                "value": "13"
+                "value": "0"
             }
         ]
     },
     {
         "type": "instruction",
-        "value": "halt",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "1"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "add",
         "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "dup",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "3"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "mod",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "0"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "cmp",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "je",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 63
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "dup",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "5"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "mod",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "0"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "cmp",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "je",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 136
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "dup",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "nprint",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 167
+            },
+            {
+                "type": "numeric",
+                "value": "1"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "jmp",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "dup",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "5"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "mod",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "push",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": "0"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "cmp",
+        "operands": []
+    },
+    {
+        "type": "instruction",
+        "value": "je",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 104
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 159
+            },
+            {
+                "type": "numeric",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 167
+            },
+            {
+                "type": "numeric",
+                "value": "1"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "jmp",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 159
+            },
+            {
+                "type": "numeric",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 163
+            },
+            {
+                "type": "numeric",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 167
+            },
+            {
+                "type": "numeric",
+                "value": "1"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "jmp",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 5
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 163
+            },
+            {
+                "type": "numeric",
+                "value": "4"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "sprint",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 167
+            },
+            {
+                "type": "numeric",
+                "value": "1"
+            }
+        ]
+    },
+    {
+        "type": "instruction",
+        "value": "jmp",
+        "operands": [
+            {
+                "type": "numeric",
+                "value": 5
+            }
+        ]
     },
     {
         "type": "keyword",
         "value": "raw",
-        "string_value": "Hello World!\n"
+        "string_value": "fizz"
+    },
+    {
+        "type": "keyword",
+        "value": "raw",
+        "string_value": "buzz"
+    },
+    {
+        "type": "keyword",
+        "value": "raw",
+        "string_value": "\n"
     }
 ]

@@ -1,3 +1,4 @@
+import time
 from qvm_debug_repl import debug_repl
 
 DEBUG = False
@@ -10,6 +11,7 @@ instruction_mapping = {
     0x04: "pop", # Pop a value off the stack and void it
     0x05: "pop <reg>", # Pop a value off the stack and store it in a register
     0x06: "swap", # Swap the top two values on the stack
+    0x07: "dup", # Duplicate the top value on the stack
     0x10: "nprint", # numeric print
     0x11: "nprint <lit>", # ascii print
     0x12: "nprint <reg>", # ascii print
@@ -43,10 +45,13 @@ instruction_mapping = {
     0x39: "js <reg>", # jump to a register address if the first value on the stack is smaller than the second
     0x3A: "je <lit>", # jump to an address if the first value on the stack is equal to the second
     0x3B: "je <reg>", # jump to a register address if the first value on the stack is equal to the second
-    0x3C: "jge <lit>", # jump to an address if the first value on the stack is greater than or equal to the second
-    0x3D: "jge <reg>", # jump to a register address if the first value on the stack is greater than or equal to the second
+    0x3C: "jne <lit>", # jump to an address if the first value on the stack is not equal to the second
+    0x3D: "jne <reg>", # jump to a register address if the first value on the stack is not equal to the second
     0x40: "cmp", # compare two values on the stack
-    0x41: "cmp <reg> <reg>" # compare two registers
+    0x41: "cmp <reg> <reg>", # compare two registers
+    0x42: "sleep", # sleep for a number of milliseconds on the stack
+    0x43: "sleep <reg>", # sleep for a number of milliseconds in a register
+    0x44: "sleep <lit>" # sleep for a number of milliseconds in a literal
 }
 
 def run_instruction(instruction, vm):
@@ -81,18 +86,21 @@ def run_instruction(instruction, vm):
         vm.stack.append(num1)
         vm.stack.append(num2)
 
+    elif instruction == 0x07:
+        vm.stack.append(vm.stack[-1])
+
     elif instruction == 0x10:
         num = vm.stack.pop()
-        print(num)
+        print(num, end="")
         
     elif instruction == 0x11:
         num = vm.get_u32()
-        print(num)
+        print(num, end="")
         
     elif instruction == 0x12:
         reg = vm.get_register()
         num = vm.registers[reg]
-        print(num)
+        print(num, end="")
     
     elif instruction == 0x13:
         num = vm.stack.pop()
@@ -195,3 +203,128 @@ def run_instruction(instruction, vm):
         reg1 = vm.get_register()
         reg2 = vm.get_register()
         vm.registers[reg2] %= vm.registers[reg1]
+
+    elif instruction == 0x30:
+        addr = vm.get_u32()
+        vm.registers["pc"] = addr
+    
+    elif instruction == 0x31:
+        addr = vm.registers[vm.get_register()]
+        vm.registers["pc"] = addr
+
+    elif instruction == 0x32:
+        addr = vm.get_u32()
+        if vm.flags["notZero"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x33:
+        addr = vm.registers[vm.get_register()]
+        if vm.flags["notZero"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x34:
+        addr = vm.get_u32()
+        if vm.flags["zero"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x35:
+        addr = vm.registers[vm.get_register()]
+        if vm.flags["zero"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x36:
+        addr = vm.get_u32()
+        if vm.flags["greaterThan"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x37:
+        addr = vm.registers[vm.get_register()]
+        if vm.flags["greaterThan"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x38:
+        addr = vm.get_u32()
+        if vm.flags["smallerThan"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x39:
+        addr = vm.registers[vm.get_register()]
+        if vm.flags["smallerThan"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x3A:
+        addr = vm.get_u32()
+        if vm.flags["equal"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x3B:
+        addr = vm.registers[vm.get_register()]
+        if vm.flags["equal"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x3C:
+        addr = vm.get_u32()
+        if vm.flags["notEqual"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x3D:
+        addr = vm.registers[vm.get_register()]
+        if vm.flags["notEqual"]:
+            vm.registers["pc"] = addr
+
+    elif instruction == 0x40:
+        # Reset the vm flags
+        vm.flags = {
+            'halt': False,
+            'notZero': False,
+            'zero': False,
+            'greaterThan': False,
+            'smallerThan': False,
+            'equal': False,
+            'notEqual': False,
+        }
+
+        num1 = vm.stack.pop()
+        num2 = vm.stack.pop()
+
+        if num1 > num2:
+            vm.flags['greaterThan'] = True
+        if num1 < num2:
+            vm.flags['smallerThan'] = True
+        if num1 == num2:
+            vm.flags['equal'] = True
+        if num1 != num2:
+            vm.flags['notEqual'] = True
+
+    elif instruction == 0x41:
+        # Reset the vm flags
+        vm.flags = {
+            'halt': False,
+            'notZero': False,
+            'zero': False,
+            'greaterThan': False,
+            'smallerThan': False,
+            'equal': False,
+            'notEqual': False,
+        }
+
+        num1 = vm.registers[vm.get_register()]
+        num2 = vm.registers[vm.get_register()]
+
+        if num1 > num2:
+            vm.flags['greaterThan'] = True
+        if num1 < num2:
+            vm.flags['smallerThan'] = True
+        if num1 == num2:
+            vm.flags['equal'] = True
+        if num1 != num2:
+            vm.flags['notEqual'] = True
+
+    elif instruction == 0x42:
+        time.sleep(vm.stack.pop() / 1000)
+
+    elif instruction == 0x43:
+        time.sleep(vm.registers[vm.get_register()] / 1000)
+
+    elif instruction == 0x44:
+        time.sleep(vm.get_u32() / 1000)

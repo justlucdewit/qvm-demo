@@ -16,13 +16,12 @@ class QuadiraVirtualMachine:
         
         self.flags = {
             'halt': False,
-            'overflow': False,
-            'underflow': False,
+            'notZero': False,
             'zero': False,
             'greaterThan': False,
-            'lessThan': False,
+            'smallerThan': False,
             'equal': False,
-            'notEqual': False
+            'notEqual': False,
         }
     
     def increment_program_counter(self, amount = 1):

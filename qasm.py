@@ -78,7 +78,7 @@ for i, code_item in enumerate(code):
 # Convert to tokens
 tokens = []
 labels = []
-opcodes = ["halt", "debug", "push", "pop", "swap", "nprint", "aprint", "sprint"]
+opcodes = ["halt", "debug", "push", "pop", "swap", "dup", "nprint", "aprint", "sprint", "add", "sub", "mul", "div", "mod", "jmp", "jnz", "jz", "jg", "js", "je", "jne", "cmp", "sleep"]
 registers = ["a", "b", "c", "d", "pc"]
 keywords = ["raw"]
 current_offset = 0
@@ -139,11 +139,18 @@ for token in tokens:
     if token["type"] == "instruction":
         for operand in token["operands"]:
             if operand["type"] == "unknown":
+                found = False
+
                 for label in labels:
                     if label["value"] == operand["value"]:
                         operand["type"] = "numeric"
                         operand["value"] = label["points_to"]
+                        found = True
                         break
+
+                if found == False:
+                    print("[error] Unknown label: " + operand["value"])
+                    exit(1)
 
 
 # =============================================================================== #
@@ -178,6 +185,9 @@ possible_instructions = {
     ],
     "swap": [
         [0x06],
+    ],
+    "dup": [
+        [0x07],
     ],
     "nprint": [
         [0x10],
@@ -215,6 +225,43 @@ possible_instructions = {
     "mod": [
         [0x24],
         [0x29, "register", "register"]
+    ],
+    "jmp": [
+        [0x30, "numeric"],
+        [0x31, "register"]
+    ],
+    "jnz": [
+        [0x32, "numeric"],
+        [0x33, "register"]
+    ],
+    "jz": [
+        [0x34, "numeric"],
+        [0x35, "register"]
+    ],
+    "jg": [
+        [0x36, "numeric"],
+        [0x37, "register"]
+    ],
+    "js": [
+        [0x38, "numeric"],
+        [0x39, "register"]
+    ],
+    "je": [
+        [0x3A, "numeric"],
+        [0x3B, "register"]
+    ],
+    "jne": [
+        [0x3C, "numeric"],
+        [0x3D, "register"]
+    ],
+    "cmp": [
+        [0x40],
+        [0x41, "register", "register"]
+    ],
+    "sleep": [
+        [0x42],
+        [0x43, "register"],
+        [0x44, "numeric"]
     ]
 }
 
