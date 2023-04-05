@@ -1,5 +1,6 @@
-sprint 10 13
+sprint 10 txt
 
 halt
 
+:txt
 raw "Hello World!\n"

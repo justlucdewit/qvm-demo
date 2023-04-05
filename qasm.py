@@ -5,6 +5,17 @@ out_file = "test.qvm"
 
 code = open(inp_file, "r").read()
 
+# ====================================== #
+#   _____               _                #
+#  |  __ \             (_)               #
+#  | |__) |_ _ _ __ ___ _ _ __   __ _    #
+#  |  ___/ _` | '__/ __| | '_ \ / _` |   #
+#  | |  | (_| | |  \__ \ | | | | (_| |   #
+#  |_|   \__,_|_|  |___/_|_| |_|\__, |   #
+#                                __/ |   #
+#                               |___/    #
+# ====================================== #
+
 # Remove the comments from the assembly code
 temp_buffer = ""
 skip_mode = False
@@ -92,6 +103,15 @@ while token_index < len(code):
             "string_value": operands[0]["value"][1:-1]
         })
     
+# =============================================================================== #
+#    _____          _         _____                           _   _               #
+#   / ____|        | |       / ____|                         | | (_)              #
+#  | |     ___   __| | ___  | |  __  ___ _ __   ___ _ __ __ _| |_ _  ___  _ __    #
+#  | |    / _ \ / _` |/ _ \ | | |_ |/ _ \ '_ \ / _ \ '__/ _` | __| |/ _ \| '_ \   #
+#  | |___| (_) | (_| |  __/ | |__| |  __/ | | |  __/ | | (_| | |_| | (_) | | | |  #
+#   \_____\___/ \__,_|\___|  \_____|\___|_| |_|\___|_|  \__,_|\__|_|\___/|_| |_|  #
+# ==============================================================================  #
+
 # Write the tokens to ast.json in a formatted way
 with open("ast.json", "w") as f:
     f.write(json.dumps(tokens, indent=4))
@@ -192,55 +212,6 @@ while token_index < len(tokens):
                         generated_bytecode.extend(operand_bytes)
 
         token_index += 1
-    
-    # 
-    
-    # if token["value"] == "halt":
-    #     generated_bytecode.append(0x00)
-    # elif token["value"] == "debug":
-    #     generated_bytecode.append(0x01)
-    # elif token["value"] == "swap":
-    #     generated_bytecode.append(0x06)
-        
-    # elif token["value"] == "push":
-    #     operands = token["operands"]
-    #     if len(operands) == 1 and operands[0]["type"] == "numeric":
-    #         generated_bytecode.append(0x02)
-            
-    #         operand_bytes = [] # 4 bytes
-    #         operand = int(operands[0]["value"])
-    #         operand_bytes.append(operand & 0xFF)
-    #         operand_bytes.append((operand >> 8) & 0xFF)
-    #         operand_bytes.append((operand >> 16) & 0xFF)
-    #         operand_bytes.append((operand >> 24) & 0xFF)
-    #         operand_bytes = operand_bytes[::-1]
-            
-    #         generated_bytecode.extend(operand_bytes)
-    
-    # elif token["value"] == "nprint":
-    #     operands = token["operands"]
-    #     if len(operands) == 0:
-    #         generated_bytecode.append(0x10)
-    #     elif len(operands) == 1 and operands[0]["type"] == "numeric":
-    #         generated_bytecode.append(0x11)
-            
-    #         operand_bytes = [] # 4 bytes
-    #         operand = int(operands[0]["value"])
-    #         operand_bytes.append(operand & 0xFF)
-    #         operand_bytes.append((operand >> 8) & 0xFF)
-    #         operand_bytes.append((operand >> 16) & 0xFF)
-    #         operand_bytes.append((operand >> 24) & 0xFF)
-    #         operand_bytes = operand_bytes[::-1]
-            
-    #         generated_bytecode.extend(operand_bytes)
-    #     elif len(operands) == 1 and operands[0]["type"] == "register":
-    #         generated_bytecode.append(0x12)
-            
-    #         operand_bytes = [] # 1 byte
-            
-            
-            
-        
     
 # Write the bytecode to the output file
 with open(out_file, "wb") as f:

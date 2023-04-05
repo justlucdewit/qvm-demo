@@ -8,15 +8,20 @@
                 "value": "10"
             },
             {
-                "type": "numeric",
-                "value": "13"
+                "type": "unknown",
+                "value": "txt"
             }
         ]
     },
     {
         "type": "instruction",
         "value": "halt",
-        "operands": []
+        "operands": [
+            {
+                "type": "unknown",
+                "value": ":txt"
+            }
+        ]
     },
     {
         "type": "keyword",
