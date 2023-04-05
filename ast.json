@@ -5,23 +5,18 @@
         "operands": [
             {
                 "type": "numeric",
-                "value": "10"
+                "value": 10
             },
             {
-                "type": "unknown",
-                "value": "txt"
+                "type": "numeric",
+                "value": "13"
             }
         ]
     },
     {
         "type": "instruction",
         "value": "halt",
-        "operands": [
-            {
-                "type": "unknown",
-                "value": ":txt"
-            }
-        ]
+        "operands": []
     },
     {
         "type": "keyword",

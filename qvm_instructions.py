@@ -20,7 +20,33 @@ instruction_mapping = {
     0x17: "sprint <lit> <lit>", # string print
     0x18: "sprint <lit> <reg>", # string print
     0x19: "sprint <reg> <lit>", # string print
-    0x1A: "sprint <reg> <reg>" # string print
+    0x1A: "sprint <reg> <reg>", # string print
+    0x20: "add", # stack addition
+    0x21: "sub", # stack subtraction
+    0x22: "mul", # stack multiplication
+    0x23: "div", # stack division
+    0x24: "mod", # stack modulus
+    0x25: "add <reg> <reg>", # register addition
+    0x26: "sub <reg> <reg>", # register subtraction
+    0x27: "mul <reg> <reg>", # register multiplication
+    0x28: "div <reg> <reg>", # register division
+    0x29: "mod <reg> <reg>", # register modulus
+    0x30: "jmp <lit>", # jump to an address
+    0x31: "jmp <reg>", # jump to a register address
+    0x32: "jnz <lit>", # jump to an address if the top of the stack is not zero
+    0x33: "jnz <reg>", # jump to a register address if the top of the stack is not zero
+    0x34: "jz <lit>", # jump to an address if the top of the stack is zero
+    0x35: "jz <reg>", # jump to a register address if the top of the stack is zero
+    0x36: "jg <lit>", # jump to an address if the first value on the stack is greater than the second
+    0x37: "jg <reg>", # jump to a register address if the first value on the stack is greater than the second
+    0x38: "js <lit>", # jump to an address if the first value on the stack is smaller than the second
+    0x39: "js <reg>", # jump to a register address if the first value on the stack is smaller than the second
+    0x3A: "je <lit>", # jump to an address if the first value on the stack is equal to the second
+    0x3B: "je <reg>", # jump to a register address if the first value on the stack is equal to the second
+    0x3C: "jge <lit>", # jump to an address if the first value on the stack is greater than or equal to the second
+    0x3D: "jge <reg>", # jump to a register address if the first value on the stack is greater than or equal to the second
+    0x40: "cmp", # compare two values on the stack
+    0x41: "cmp <reg> <reg>" # compare two registers
 }
 
 def run_instruction(instruction, vm):
@@ -119,3 +145,53 @@ def run_instruction(instruction, vm):
 
         string = vm.code[address:address+str_len]
         print(string.decode("utf-8"), end="")
+
+    elif instruction == 0x20:
+        num1 = vm.stack.pop()
+        num2 = vm.stack.pop()
+        vm.stack.append(num1 + num2)
+
+    elif instruction == 0x21:
+        num1 = vm.stack.pop()
+        num2 = vm.stack.pop()
+        vm.stack.append(num2 - num1)
+
+    elif instruction == 0x22:
+        num1 = vm.stack.pop()
+        num2 = vm.stack.pop()
+        vm.stack.append(num1 * num2)
+
+    elif instruction == 0x23:
+        num1 = vm.stack.pop()
+        num2 = vm.stack.pop()
+        vm.stack.append(num2 // num1)
+
+    elif instruction == 0x24:
+        num1 = vm.stack.pop()
+        num2 = vm.stack.pop()
+        vm.stack.append(num2 % num1)
+
+    elif instruction == 0x25:
+        reg1 = vm.get_register()
+        reg2 = vm.get_register()
+        vm.registers[reg2] += vm.registers[reg1]
+
+    elif instruction == 0x26:
+        reg1 = vm.get_register()
+        reg2 = vm.get_register()
+        vm.registers[reg2] -= vm.registers[reg1]
+
+    elif instruction == 0x27:
+        reg1 = vm.get_register()
+        reg2 = vm.get_register()
+        vm.registers[reg2] *= vm.registers[reg1]
+
+    elif instruction == 0x28:
+        reg1 = vm.get_register()
+        reg2 = vm.get_register()
+        vm.registers[reg2] //= vm.registers[reg1]
+
+    elif instruction == 0x29:
+        reg1 = vm.get_register()
+        reg2 = vm.get_register()
+        vm.registers[reg2] %= vm.registers[reg1]

@@ -1,6 +1,5 @@
-sprint 10 txt
-
+sprint hw 13
 halt
 
-:txt
-raw "Hello World!\n"
+hw:
+    raw "Hello World!\n" ; 13 chars

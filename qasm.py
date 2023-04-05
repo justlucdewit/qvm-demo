@@ -5,6 +5,14 @@ out_file = "test.qvm"
 
 code = open(inp_file, "r").read()
 
+
+
+
+
+
+
+
+
 # ====================================== #
 #   _____               _                #
 #  |  __ \             (_)               #
@@ -69,8 +77,11 @@ for i, code_item in enumerate(code):
 
 # Convert to tokens
 tokens = []
+labels = []
 opcodes = ["halt", "debug", "push", "pop", "swap", "nprint", "aprint", "sprint"]
+registers = ["a", "b", "c", "d", "pc"]
 keywords = ["raw"]
+current_offset = 0
 token_index = 0
 while token_index < len(code):
     curr_token = code[token_index]
@@ -78,15 +89,17 @@ while token_index < len(code):
     operands = []
     token_index += 1
     
-    while token_index < len(code) and code[token_index] not in opcodes and code[token_index] not in keywords:
-        registers = ["a", "b", "c", "d", "pc"]
+    while token_index < len(code) and code[token_index] not in opcodes and code[token_index] not in keywords and not code[token_index].endswith(":"):
         is_register = code[token_index] in registers
         is_numeric = code[token_index].isnumeric()
-        
+        curr_type = "register" if is_register else "numeric" if is_numeric else "unknown"
         operands.append({
-            "type": "register" if is_register else "numeric" if is_numeric else "unknown",
+            "type": curr_type,
             "value": code[token_index]
         })
+
+        if curr_type == "unknown":
+            current_offset += 4
         
         token_index += 1
         
@@ -96,13 +109,43 @@ while token_index < len(code):
             "value": curr_token,
             "operands": operands
         })
+        current_offset += 1
+
+        for operand in operands:
+            if operand["type"] == "register":
+                current_offset += 1
+            elif operand["type"] == "numeric":
+                current_offset += 4
+
+    elif curr_token.endswith(":"):
+        labels.append({
+            "type": "label",
+            "value": curr_token[:-1],
+            "points_to": current_offset
+        })
     else:
         tokens.append({
             "type": "keyword",
             "value": curr_token,
             "string_value": operands[0]["value"][1:-1]
         })
+
+        if curr_token == "raw":
+            current_offset += len(operands[0]["value"][1:-1])  - 4
     
+
+# Loop trough all the instruction operands and replace unknowns with labels if they exist
+for token in tokens:
+    if token["type"] == "instruction":
+        for operand in token["operands"]:
+            if operand["type"] == "unknown":
+                for label in labels:
+                    if label["value"] == operand["value"]:
+                        operand["type"] = "numeric"
+                        operand["value"] = label["points_to"]
+                        break
+
+
 # =============================================================================== #
 #    _____          _         _____                           _   _               #
 #   / ____|        | |       / ____|                         | | (_)              #
@@ -111,6 +154,8 @@ while token_index < len(code):
 #  | |___| (_) | (_| |  __/ | |__| |  __/ | | |  __/ | | (_| | |_| | (_) | | | |  #
 #   \_____\___/ \__,_|\___|  \_____|\___|_| |_|\___|_|  \__,_|\__|_|\___/|_| |_|  #
 # ==============================================================================  #
+
+print("[info] Parsing completed")
 
 # Write the tokens to ast.json in a formatted way
 with open("ast.json", "w") as f:
@@ -150,13 +195,31 @@ possible_instructions = {
         [0x18, "numeric", "register"],
         [0x19, "register", "numeric"],
         [0x1A, "register", "register"],
+    ],
+    "add": [
+        [0x20],
+        [0x25, "register", "register"]
+    ],
+    "sub": [
+        [0x21],
+        [0x26, "register", "register"]
+    ],
+    "mul": [
+        [0x22],
+        [0x27, "register", "register"]
+    ],
+    "div": [
+        [0x23],
+        [0x28, "register", "register"]
+    ],
+    "mod": [
+        [0x24],
+        [0x29, "register", "register"]
     ]
 }
 
 generated_bytecode = []
 token_index = 0
-# for token in tokens:
-#     print(token)
 
 while token_index < len(tokens):
     # print(token_index)
@@ -216,3 +279,5 @@ while token_index < len(tokens):
 # Write the bytecode to the output file
 with open(out_file, "wb") as f:
     f.write(bytes(generated_bytecode))
+
+print("[info] Code generation completed")
